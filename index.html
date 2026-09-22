@@ -809,8 +809,11 @@ window.addEventListener('scroll', () => {
 // ── Passport photo: swap in when passport.jpg exists, fall back to monogram ──
 const avatar = document.getElementById('avatar');
 const passportImg = document.getElementById('passport-img');
-passportImg.addEventListener('load', () => avatar.classList.add('has-photo'));
+const showPhoto = () => avatar.classList.add('has-photo');
+passportImg.addEventListener('load', showPhoto);
 passportImg.addEventListener('error', () => avatar.classList.remove('has-photo'));
+// If the image already finished loading before this script ran, show it now
+if (passportImg.complete && passportImg.naturalWidth > 0) showPhoto();
 
 // ── Contact form (Formspree) ──
 const form = document.getElementById('contact-form');
