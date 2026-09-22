@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Adeniran Tayo — Artist Management Portfolio</title>
+<meta name="description" content="Adeniran Tayo — artist manager, A&R and label operations. Portfolio of work with Nigerian artists and labels since 2009." />
+<meta name="theme-color" content="#FBF5EC" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎧</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script>document.documentElement.classList.add('js');</script>
+<style>
+:root{
+  --bg:#FBF5EC;
+  --surface:#FFFCF7;
+  --ink:#33281C;
+  --body:#5C4B39;
+  --muted:#8A7663;
+  --accent:#B4522B;
+  --accent-dark:#8F3F1F;
+  --accent-light:#D98E4F;
+  --accent-soft:#F5E4D6;
+  --line:#EBDFCE;
+  --dark:#2E2317;
+  --cream:#F6ECDC;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%}
+[hidden]{display:none!important}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+::selection{background:#F0D9C2}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.container{max-width:940px;margin:0 auto;padding:0 22px}
+
+/* ── Film grain + scroll progress ───────── */
+.grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")}
+.progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:100;background:linear-gradient(90deg,var(--accent),var(--accent-light))}
+
+/* ── Header ─────────────────────────────── */
+.site-header{position:sticky;top:0;z-index:60;background:rgba(251,245,236,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:1.1rem;color:var(--ink);display:flex;align-items:center;gap:10px}
+.brand:hover{text-decoration:none}
+.brand-dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.nav-links{display:flex;gap:28px}
+.nav-links a{position:relative;font-size:.84rem;font-weight:500;color:var(--muted);letter-spacing:.02em}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-5px;width:100%;height:1.5px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.nav-links a:hover{color:var(--accent);text-decoration:none}
+.nav-links a:hover::after{transform:scaleX(1)}
+@media(max-width:560px){.nav-links{display:none}}
+
+/* ── Hero ───────────────────────────────── */
+.hero{position:relative;text-align:center;padding:84px 0 72px;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-220px;left:50%;transform:translateX(-50%);width:980px;height:480px;background:radial-gradient(closest-side,#F6E3CC,transparent);opacity:.9;pointer-events:none}
+.hero::after{content:"";position:absolute;bottom:-160px;right:-120px;width:420px;height:420px;background:radial-gradient(closest-side,#F5E4D6,transparent);opacity:.55;pointer-events:none}
+.hero .container{position:relative;z-index:1}
+.avatar{width:176px;height:176px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;margin:0 auto;overflow:hidden;position:relative;box-shadow:0 0 0 6px var(--surface),0 0 0 7px var(--line),0 20px 44px rgba(60,40,20,.16);transition:transform .3s ease}
+.avatar:hover{transform:scale(1.03)}
+.avatar .monogram{font-family:'Fraunces',serif;font-weight:600;font-size:3.4rem;color:var(--accent);user-select:none}
+.avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
+.avatar.has-photo img{display:block}
+.avatar.has-photo .monogram{display:none}
+.hero-eyebrow{margin-top:30px;font-size:.72rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.5rem,6vw,3.6rem);letter-spacing:-.01em;margin-top:10px}
+.name-squiggle{display:block;margin:2px auto 0;width:150px;color:var(--accent)}
+.tagline{margin:16px 0 4px;font-size:.8rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.eq{display:flex;align-items:flex-end;justify-content:center;gap:4px;height:22px;margin:6px 0 20px}
+.eq span{width:4px;border-radius:2px;background:var(--accent);opacity:.8;transform-origin:bottom;animation:eq 1.15s ease-in-out infinite}
+.eq span:nth-child(1){animation-delay:0s;height:14px}
+.eq span:nth-child(2){animation-delay:.15s;height:22px}
+.eq span:nth-child(3){animation-delay:.3s;height:10px}
+.eq span:nth-child(4){animation-delay:.45s;height:18px}
+.eq span:nth-child(5){animation-delay:.6s;height:12px}
+@keyframes eq{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+.intro{max-width:62ch;margin:0 auto;color:var(--body);font-size:1.02rem}
+.stats{display:flex;justify-content:center;flex-wrap:wrap;gap:0;margin-top:38px;border:1px solid var(--line);border-radius:18px;background:var(--surface);max-width:560px;margin-left:auto;margin-right:auto;padding:22px 0;box-shadow:0 1px 2px rgba(60,40,20,.04)}
+.stats div{flex:1;text-align:center;padding:0 18px}
+.stats div + div{border-left:1px solid var(--line)}
+.stats strong{display:block;font-family:'Fraunces',serif;font-weight:600;font-size:2rem;line-height:1.1;color:var(--accent-dark)}
+.stats span{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.socials{display:flex;justify-content:center;gap:12px;margin-top:28px}
+.socials a{width:42px;height:42px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;background:var(--surface);color:var(--ink);transition:.2s ease}
+.socials a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px);text-decoration:none;box-shadow:0 8px 18px rgba(180,82,43,.18)}
+.socials svg{width:18px;height:18px}
+
+/* ── Marquee ────────────────────────────── */
+.marquee{background:var(--dark);color:#E9D9C3;padding:15px 0;overflow:hidden;border-block:1px solid var(--line)}
+.marquee-track{display:flex;width:max-content;animation:scroll 30s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-group{display:flex;align-items:center;gap:44px;padding-right:44px;white-space:nowrap;font-family:'Fraunces',serif;font-style:italic;font-size:1rem;letter-spacing:.04em}
+.marquee-group i{font-style:normal;color:var(--accent-light);font-size:.8rem}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ── Chips & badges ─────────────────────── */
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:600;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);transition:.2s ease}
+.chip:hover{border-color:var(--accent);color:var(--accent);text-decoration:none;transform:translateY(-1px)}
+.chip svg{width:14px;height:14px;flex:none}
+.chip.na{background:transparent;border-style:dashed;color:var(--muted);font-weight:500;font-style:italic}
+.badge{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.04em;color:var(--accent-dark);background:var(--accent-soft);padding:4px 11px;border-radius:999px}
+
+/* ── Sections ───────────────────────────── */
+.section{padding:80px 0}
+.section.alt{background:#F7F0E3;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+section[id]{scroll-margin-top:80px}
+.section-head{max-width:640px;margin-bottom:42px}
+.head-row{display:flex;align-items:center;gap:16px}
+.sec-num{font-family:'Fraunces',serif;font-style:italic;font-size:1rem;color:var(--accent)}
+.head-rule{flex:1;max-width:120px;height:1px;background:var(--line)}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.section-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.7rem,3vw,2.2rem);margin-top:8px}
+.section-sub{color:var(--body);font-size:.95rem;margin-top:10px}
+
+/* ── Case studies ───────────────────────── */
+.case{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:30px 30px 22px;margin-bottom:26px;box-shadow:0 1px 2px rgba(60,40,20,.04);transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.case:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(60,40,20,.10);border-color:#E2D2B9}
+.case-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.case h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.4rem}
+.case-links{display:flex;gap:8px;flex-wrap:wrap}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.overview{color:var(--body);font-size:.95rem;margin-top:14px;max-width:65ch}
+.achievements{list-style:none;margin-top:20px;border-top:1px solid var(--line)}
+.achievements li{display:grid;grid-template-columns:84px 1fr;gap:18px;padding:17px 0;border-bottom:1px solid var(--line)}
+.achievements li:last-child{border-bottom:0;padding-bottom:4px}
+.year{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:.9rem;color:var(--accent);padding-top:2px}
+.a-role{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.a-text{font-size:.93rem;color:#54432F;margin-top:3px}
+.evidence{margin-top:9px}
+@media(max-width:520px){.achievements li{grid-template-columns:1fr;gap:4px}}
+
+/* ── Music grid ─────────────────────────── */
+.track-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.track{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:12px;transition:transform .25s ease,box-shadow .25s ease;overflow:hidden}
+.track::before{content:"";position:absolute;top:0;left:22px;right:22px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--accent),transparent);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+.track:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(60,40,20,.10)}
+.track:hover::before{transform:scaleX(1)}
+.platform{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;transition:transform .25s ease}
+.track:hover .platform{transform:scale(1.1)}
+.platform svg{width:20px;height:20px}
+.platform.spotify{background:#E4F3E5;color:#1DB954}
+.platform.rn{background:#EFE7DB;color:#5C4B39}
+.platform.ig{background:var(--accent-soft);color:var(--accent)}
+.platform.press{background:var(--accent-soft);color:var(--accent-dark)}
+.track h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.08rem}
+.track-meta{font-size:.8rem;color:var(--muted);margin-top:2px}
+.track-role{font-size:.78rem;color:var(--accent-dark);margin-top:4px;font-weight:500}
+.track iframe{border:0;margin-top:auto;border-radius:12px}
+.track-link{margin-top:auto;font-size:.85rem;font-weight:600;color:var(--accent)}
+.track-link:hover{text-decoration:underline}
+
+/* ── Skills ─────────────────────────────── */
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:640px){.skills-grid{grid-template-columns:1fr}}
+.skill-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px}
+.skill-card h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.2rem;margin-bottom:10px}
+.skill-card ul{list-style:none}
+.skill-card li{padding:9px 12px;margin:0 -12px;border-bottom:1px dashed var(--line);font-size:.93rem;color:var(--body);border-radius:10px;transition:background .2s ease}
+.skill-card li:last-child{border-bottom:0}
+.skill-card li::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--accent);margin-right:11px;vertical-align:2px}
+.skill-card li:hover{background:#FBF1E3}
+
+/* ── Contact ────────────────────────────── */
+.contact-card{position:relative;overflow:hidden;background:var(--dark);color:var(--cream);border-radius:28px;padding:60px 28px 52px;text-align:center;box-shadow:0 24px 60px rgba(46,35,23,.25)}
+.contact-card::before{content:"“";position:absolute;top:-30px;left:24px;font-family:'Fraunces',serif;font-size:9rem;line-height:1;color:rgba(233,217,195,.07);pointer-events:none}
+.contact-card::after{content:"";position:absolute;bottom:-140px;right:-100px;width:340px;height:340px;border-radius:50%;background:radial-gradient(closest-side,rgba(180,82,43,.35),transparent);pointer-events:none}
+.contact-card .eyebrow{color:#E5A276}
+.contact-card h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.55rem,3vw,2.05rem);margin:10px auto 12px;color:var(--cream);max-width:24ch}
+.contact-sub{color:#CBB9A2;max-width:52ch;margin:0 auto;font-size:.95rem}
+.contact-form{position:relative;z-index:1;max-width:520px;margin:32px auto 0;display:grid;gap:12px;text-align:left}
+.contact-form input,.contact-form textarea{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:14px 17px;color:var(--cream);font:inherit;font-size:.95rem;transition:border-color .2s ease,background .2s ease}
+.contact-form input::placeholder,.contact-form textarea::placeholder{color:#A99680}
+.contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--accent-light);background:rgba(255,255,255,.1)}
+.contact-form textarea{min-height:120px;resize:vertical}
+.contact-form .btn{justify-content:center;margin-top:4px;cursor:pointer;border:0;font-family:inherit;width:100%}
+.btn{display:inline-flex;align-items:center;gap:10px;margin-top:26px;background:var(--accent);color:#FFF6EE;font-weight:600;font-size:.95rem;padding:14px 30px;border-radius:999px;transition:.2s ease}
+.btn:hover{background:var(--accent-dark);transform:translateY(-2px);text-decoration:none;box-shadow:0 12px 28px rgba(180,82,43,.4)}
+.btn svg{width:17px;height:17px;transition:transform .2s ease}
+.btn:hover svg{transform:translateX(4px)}
+.form-status{position:relative;z-index:1;min-height:1.4em;margin-top:14px;font-size:.88rem;color:#EAD9C2}
+.form-status.ok{color:#B8D8B0}
+.form-status.err{color:#F0B3A0}
+.contact-alt{position:relative;z-index:1;margin-top:18px;font-size:.85rem;color:#CBB9A2}
+.contact-alt a{color:#EAD9C2}
+.contact-alt a:hover{color:#fff}
+
+/* ── Footer ─────────────────────────────── */
+.site-footer{padding:40px 0 50px;text-align:center;font-size:.82rem;color:var(--muted)}
+.foot-note{margin-top:6px;font-size:.74rem;color:#B4A38D}
+.to-top{display:inline-block;margin-top:16px;font-size:.78rem;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:7px 16px;transition:.2s ease}
+.to-top:hover{color:var(--accent);border-color:var(--accent);text-decoration:none}
+
+/* ── Reveal animation ───────────────────── */
+.js [data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.js [data-reveal].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .js [data-reveal]{opacity:1;transform:none;transition:none}
+  .eq span{animation:none}
+  .marquee-track{animation:none}
+  .marquee{overflow-x:auto}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     QUICK CUSTOMISATION CHECKLIST (search this file for "TODO")
+     1. Contact form → paste your Formspree endpoint (see
+        "TO CONNECT THE CONTACT FORM" in the contact section)
+     2. Photo → upload passport.jpg to the repo root (same
+        folder as index.html). Until then, an "AT" monogram shows.
+     3. Le Beau's label spelling → confirm "It Call Records"
+═══════════════════════════════════════════════════════ -->
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="#"><span class="brand-dot"></span>Portfolio</a>
+    <nav class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#music">Music</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ── Hero ─────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+
+    <!-- Passport photo: upload passport.jpg to the repo root.
+         Until it exists, an "AT" monogram is shown instead.  -->
+    <div class="avatar" id="avatar">
+      <span class="monogram" aria-hidden="true">AT</span>
+      <img id="passport-img" src="passport.jpg" alt="Portrait of Adeniran Tayo" />
+    </div>
+
+    <p class="hero-eyebrow">Artist Management Portfolio</p>
+    <h1>Adeniran Tayo</h1>
+    <svg class="name-squiggle" viewBox="0 0 150 12" fill="none" aria-hidden="true">
+      <path d="M3 8c20-7 32 4 52-1s36-8 92 0" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    </svg>
+    <p class="tagline">Artist Manager · A&amp;R · Label Operations</p>
+
+    <div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+
+    <p class="intro">Building Nigerian music since 2009 — from Da Grin's <em>CEO</em> album run to today's international collaborations with Jen Ash, Mike Demero and Reimi.</p>
+
+    <div class="stats">
+      <div><strong>8</strong><span>Artists &amp; labels</span></div>
+      <div><strong>27</strong><span>Documented milestones</span></div>
+      <div><strong>2009</strong><span>Active since</span></div>
+    </div>
+
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/tayo-adeniran-b7885b123" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45z"/></svg></a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Artist marquee ───────────────────────────────────── -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="marquee-group">
+      <span>Da Grin</span><i>✦</i><span>Bob Kisky</span><i>✦</i><span>SSYMA Records</span><i>✦</i><span>TJay KARTEL</span><i>✦</i><span>Le Beau</span><i>✦</i><span>Boyty</span><i>✦</i><span>Honeydrop</span><i>✦</i><span>Santabella Music Empire</span><i>✦</i>
+    </div>
+    <div class="marquee-group">
+      <span>Da Grin</span><i>✦</i><span>Bob Kisky</span><i>✦</i><span>SSYMA Records</span><i>✦</i><span>TJay KARTEL</span><i>✦</i><span>Le Beau</span><i>✦</i><span>Boyty</span><i>✦</i><span>Honeydrop</span><i>✦</i><span>Santabella Music Empire</span><i>✦</i>
+    </div>
+  </div>
+</div>
+
+<!-- ── Work ─────────────────────────────────────────────── -->
+<section id="work" class="section">
+  <div class="container">
+    <header class="section-head" data-reveal>
+      <div class="head-row"><span class="sec-num">01</span><span class="eyebrow">Selected Work</span><span class="head-rule"></span></div>
+      <h2>Artists &amp; Labels</h2>
+      <p class="section-sub">Every engagement below is documented with its role, year and outcome.</p>
+    </header>
+
+    <article class="case" data-reveal>
+      <div class="case-head">
+        <div>
+          <h3>Da Grin</h3>
+          <div class="badges"><span class="badge">Marketing</span></div>
+        </div>
+      </div>
+      <p class="overview">Da Grin was a Nigerian rapper widely recognized for his influence on Yoruba hip-hop. In 2009, I supported the grassroots marketing campaign for his <em>CEO</em> album promotion and live performance in Kwara State.</p>
+      <ul class="achievements">
+        <li>
+          <span class="year">2009</span>
+          <div>
+            <p class="a-role">Marketing</p>
+            <p class="a-text">Supported the promotion of Da Grin's <em>CEO</em> album in Kwara State through radio outreach, flyer distribution and grassroots word-of-mouth marketing to increase awareness of his live performance.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+      </ul>
+    </article>
+
+    <article class="case" data-reveal>
+      <div class="case-head">
+        <div>
+          <h3>Bob Kisky</h3>
+          <div class="badges"><span class="badge">Music Production</span><span class="badge">A&amp;R</span><span class="badge">Mix Engineering</span></div>
+        </div>
+        <div class="case-links">
+          <a class="chip" href="https://www.reverbnation.com/bobkisky" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>ReverbNation</a>
+        </div>
+      </div>
+      <p class="overview">Bob Kisky is a Nigerian recording artist formerly signed to Burst Records. Between 2010 and 2011, I supported his artist development through A&amp;R, music production and mix engineering.</p>
+      <ul class="achievements">
+        <li>
+          <span class="year">2010</span>
+          <div>
+            <p class="a-role">A&amp;R</p>
+            <p class="a-text">Scouted and coordinated music producers for Bob Kisky's recording projects.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2011</span>
+          <div>
+            <p class="a-role">Mix Engineer</p>
+            <p class="a-text">Contributed as a mix engineer on Bob Kisky's album.</p>
+            <p class="evidence"><a class="chip" href="https://legacy.reverbnation.com/bobkisky/song/8873685" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>ReverbNation — Mix</a></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2011</span>
+          <div>
+            <p class="a-role">Music Producer</p>
+            <p class="a-text">Produced the single <em>Green Seal</em>.</p>
+            <p class="evidence"><a class="chip" href="https://legacy.reverbnation.com/bobkisky/song/10192826" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>ReverbNation — Green Seal</a></p>
+          </div>
+        </li>
+      </ul>
+    </article>
+
+    <article class="case" data-reveal>
+      <div class="case-head">
+        <div>
+          <h3>SSYMA Records</h3>
+          <div class="badges"><span class="badge">A&amp;R</span></div>
+        </div>
+      </div>
+      <p class="overview">SSYMA Records is an independent record label focused on artist development, publishing and strategic collaborations.</p>
+      <ul class="achievements">
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">A&amp;R</p>
+            <p class="a-text">Secured BMI IPI registration for SSYMA Records as a music publisher.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">A&amp;R</p>
+            <p class="a-text">Secured BMI IPI registration for TJay KARTEL as a songwriter.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">A&amp;R</p>
+            <p class="a-text">Facilitated international recording collaborations involving the label's artist roster.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">A&amp;R</p>
+            <p class="a-text">Coordinated recording camps for international collaborations.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+      </ul>
+    </article>
+
+    <article class="case" data-reveal>
+      <div class="case-head">
+        <div>
+          <h3>TJay KARTEL</h3>
+          <div class="badges"><span class="badge">A&amp;R</span></div>
+        </div>
+        <div class="case-links">
+          <a class="chip" href="https://www.instagram.com/tjay_kartel/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>Instagram</a>
+          <a class="chip" href="https://www.tiktok.com/@tjay_kartel" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-2.59-2.59c.28 0 .55.05.8.13V9.4a5.76 5.76 0 0 0-.8-.06 5.66 5.66 0 1 0 5.66 5.66V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3a4.28 4.28 0 0 1-3.22-1.48z"/></svg>TikTok</a>
+        </div>
+      </div>
+      <p class="overview">TJay KARTEL is a Nigerian recording artist whose work spans Afrobeats and Afro-fusion. He has collaborated with Mr Raw, Slow Dog, Illbliss, Reimi, Jen Ash and Mike Demero.</p>
+      <ul class="achievements">
+        <li>
+          <span class="year">2024</span>
+          <div>
+            <p class="a-role">A&amp;R</p>
+            <p class="a-text">Oversaw the development and release of <em>Close to You</em>.</p>
+            <p class="evidence"><a class="chip" href="https://open.spotify.com/album/5Dfp2CCrYjVnRaww5X8Kg0" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#1DB954"/><path d="M7.5 9.7c3-.9 6.4-.6 9 .9" stroke="#fff" stroke-width="1.6" stroke-linecap="round" fill="none"/><path d="M8 12.6c2.5-.7 5.2-.4 7.4.8" stroke="#fff" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M8.5 15.4c2-.5 4-.3 5.8.6" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>Spotify</a></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">A&amp;R</p>
+            <p class="a-text">Oversaw the development and release of <em>Ije Luv</em>.</p>
+            <p class="evidence"><a class="chip" href="https://open.spotify.com/album/3RAgan7FgXqFfCOPRfKLze" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#1DB954"/><path d="M7.5 9.7c3-.9 6.4-.6 9 .9" stroke="#fff" stroke-width="1.6" stroke-linecap="round" fill="none"/><path d="M8 12.6c2.5-.7 5.2-.4 7.4.8" stroke="#fff" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M8.5 15.4c2-.5 4-.3 5.8.6" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>Spotify</a></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">A&amp;R</p>
+            <p class="a-text">Secured an international collaboration with <a href="https://www.instagram.com/jenashmusic/" target="_blank" rel="noopener">Jen Ash</a>.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">A&amp;R</p>
+            <p class="a-text">Secured an international collaboration with Mike Demero.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">A&amp;R</p>
+            <p class="a-text">Organized recording camps for the Jen Ash and Mike Demero collaborations.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">A&amp;R</p>
+            <p class="a-text">Negotiated a one-month promotional partnership with Flame FM for free radio airplay.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2026</span>
+          <div>
+            <p class="a-role">A&amp;R</p>
+            <p class="a-text">Contributed to securing TJay's collaboration with Japanese artist Reimi on the <em>Ogene</em> soundtrack.</p>
+            <p class="evidence"><a class="chip" href="https://open.spotify.com/album/4nLn04v88TDX1LFrb0VNlW" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#1DB954"/><path d="M7.5 9.7c3-.9 6.4-.6 9 .9" stroke="#fff" stroke-width="1.6" stroke-linecap="round" fill="none"/><path d="M8 12.6c2.5-.7 5.2-.4 7.4.8" stroke="#fff" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M8.5 15.4c2-.5 4-.3 5.8.6" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>Spotify</a></p>
+          </div>
+        </li>
+      </ul>
+    </article>
+
+    <article class="case" data-reveal>
+      <div class="case-head">
+        <div>
+          <h3>Le Beau</h3>
+          <div class="badges"><span class="badge">A&amp;R Consultant</span></div>
+        </div>
+        <div class="case-links">
+          <a class="chip" href="https://tooxclusive.com/next-rated/le-beau-jaye-jaye/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>Press — TooXclusive</a>
+        </div>
+      </div>
+      <!-- TODO: confirm the label's official spelling (e.g. "iCall Records") -->
+      <p class="overview">Le Beau is a Nigerian recording artist formerly signed to It Call Records. Between December 2024 and February 2025, I served as A&amp;R consultant on his project — developing the marketing rollout plan and reviewing his artist contract.</p>
+      <ul class="achievements">
+        <li>
+          <span class="year">2024–2025</span>
+          <div>
+            <p class="a-role">A&amp;R Consultant</p>
+            <p class="a-text">Developed the marketing rollout plan for Le Beau's single <em>Jaye Jaye</em>.</p>
+            <p class="evidence"><a class="chip" href="https://tooxclusive.com/next-rated/le-beau-jaye-jaye/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>TooXclusive</a></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2024–2025</span>
+          <div>
+            <p class="a-role">A&amp;R Consultant</p>
+            <p class="a-text">Reviewed the artist's recording contract.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+      </ul>
+    </article>
+
+    <article class="case" data-reveal>
+      <div class="case-head">
+        <div>
+          <h3>Boyty</h3>
+          <div class="badges"><span class="badge">Artist Management</span><span class="badge">A&amp;R</span><span class="badge">Operations Management</span><span class="badge">Legal Advisory</span></div>
+        </div>
+        <div class="case-links">
+          <a class="chip" href="https://www.instagram.com/_boyty/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>Instagram</a>
+        </div>
+      </div>
+      <p class="overview">Boyty is a Nigerian recording artist. In 2025, I supported his career through artist management, A&amp;R, legal documentation, project coordination and artist development.</p>
+      <ul class="achievements">
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">Operations Management</p>
+            <p class="a-text">Scouted filming locations with the cinematographer for the <em>Mera</em> visualizer production.</p>
+            <p class="evidence"><a class="chip" href="https://www.instagram.com/reel/DUHLBtqjSHr/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>Instagram — Visualizer</a></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">Legal Adviser</p>
+            <p class="a-text">Drafted the artist's recording contract.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">A&amp;R</p>
+            <p class="a-text">Organized recording camps, handpicked music producers and songwriters, and supervised song and mix revisions.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">Artist Manager</p>
+            <p class="a-text">Secured the artist's BMI IPI registration and conducted artist development sessions on the business of the music industry.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+      </ul>
+    </article>
+
+    <article class="case" data-reveal>
+      <div class="case-head">
+        <div>
+          <h3>Honeydrop</h3>
+          <div class="badges"><span class="badge">Artist Management</span><span class="badge">A&amp;R</span><span class="badge">Operations Management</span></div>
+        </div>
+        <div class="case-links">
+          <a class="chip" href="https://www.instagram.com/honeydrop_official/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>Instagram</a>
+        </div>
+      </div>
+      <p class="overview">Honeydrop is a Nigerian recording artist. In 2025, I supported her artist development through A&amp;R, project coordination and music business administration.</p>
+      <ul class="achievements">
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">A&amp;R</p>
+            <p class="a-text">Organized songwriting camps with handpicked songwriters, music producers and mix engineers, and supervised song revisions for unreleased recordings.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">Artist Manager</p>
+            <p class="a-text">Secured the artist's BMI IPI registration, enabling proper songwriter identification and royalty administration.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+      </ul>
+    </article>
+
+    <article class="case" data-reveal>
+      <div class="case-head">
+        <div>
+          <h3>Santabella Music Empire</h3>
+          <div class="badges"><span class="badge">Head of Operations</span><span class="badge">A&amp;R</span></div>
+        </div>
+      </div>
+      <p class="overview">Santabella Music Empire is an independent Nigerian record label focused on artist development, music production and talent management. In 2025, I played a key role in supporting the label's operational restructuring and growth.</p>
+      <ul class="achievements">
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">Head of Operations</p>
+            <p class="a-text">Oversaw day-to-day label operations in the absence of the label owner, ensuring operational continuity during the label's restructuring.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">Head of Operations</p>
+            <p class="a-text">Developed the business plan for the Santabella Music Production Class initiative.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">Head of Operations</p>
+            <p class="a-text">Led operational activities that supported the relaunch and day-to-day stability of the label throughout its rebuilding phase.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+        <li>
+          <span class="year">2025</span>
+          <div>
+            <p class="a-role">Head of Operations</p>
+            <p class="a-text">Managed recruitment by publishing job vacancies and shortlisting candidates for key roles.</p>
+            <p class="evidence"><span class="chip na">Evidence not publicly available</span></p>
+          </div>
+        </li>
+      </ul>
+    </article>
+
+  </div>
+</section>
+
+<!-- ── Music ────────────────────────────────────────────── -->
+<section id="music" class="section alt">
+  <div class="container">
+    <header class="section-head" data-reveal>
+      <div class="head-row"><span class="sec-num">02</span><span class="eyebrow">Listen</span><span class="head-rule"></span></div>
+      <h2>Sounds &amp; Releases</h2>
+      <p class="section-sub">A selection of releases and features from projects I've worked on — press play right here.</p>
+    </header>
+
+    <div class="track-grid">
+      <article class="track" data-reveal>
+        <span class="platform spotify"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M7.5 9.7c3-.9 6.4-.6 9 .9" stroke="#fff" stroke-width="1.6" stroke-linecap="round" fill="none"/><path d="M8 12.6c2.5-.7 5.2-.4 7.4.8" stroke="#fff" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M8.5 15.4c2-.5 4-.3 5.8.6" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></span>
+        <div>
+          <h3>Close to You</h3>
+          <p class="track-meta">TJay KARTEL · 2024</p>
+          <p class="track-role">A&amp;R · development &amp; release</p>
+        </div>
+        <iframe title="Close to You — Spotify player" style="border-radius:12px" src="https://open.spotify.com/embed/album/5Dfp2CCrYjVnRaww5X8Kg0?theme=0" width="100%" height="152" frameborder="0" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+      </article>
+
+      <article class="track" data-reveal>
+        <span class="platform spotify"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M7.5 9.7c3-.9 6.4-.6 9 .9" stroke="#fff" stroke-width="1.6" stroke-linecap="round" fill="none"/><path d="M8 12.6c2.5-.7 5.2-.4 7.4.8" stroke="#fff" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M8.5 15.4c2-.5 4-.3 5.8.6" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></span>
+        <div>
+          <h3>Ije Luv</h3>
+          <p class="track-meta">TJay KARTEL · 2025</p>
+          <p class="track-role">A&amp;R · development &amp; release</p>
+        </div>
+        <iframe title="Ije Luv — Spotify player" style="border-radius:12px" src="https://open.spotify.com/embed/album/3RAgan7FgXqFfCOPRfKLze?theme=0" width="100%" height="152" frameborder="0" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+      </article>
+
+      <article class="track" data-reveal>
+        <span class="platform spotify"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M7.5 9.7c3-.9 6.4-.6 9 .9" stroke="#fff" stroke-width="1.6" stroke-linecap="round" fill="none"/><path d="M8 12.6c2.5-.7 5.2-.4 7.4.8" stroke="#fff" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M8.5 15.4c2-.5 4-.3 5.8.6" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg></span>
+        <div>
+          <h3>Ogene <span style="font-size:.65em;color:var(--muted)">(Soundtrack)</span></h3>
+          <p class="track-meta">TJay KARTEL × Reimi · 2026</p>
+          <p class="track-role">Upcoming · A&amp;R collaboration</p>
+        </div>
+        <iframe title="Ogene — Spotify player" style="border-radius:12px" src="https://open.spotify.com/embed/album/4nLn04v88TDX1LFrb0VNlW?theme=0" width="100%" height="152" frameborder="0" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+      </article>
+
+      <article class="track" data-reveal>
+        <span class="platform press"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg></span>
+        <div>
+          <h3>Jaye Jaye</h3>
+          <p class="track-meta">Le Beau · 2024/25 · Next Rated feature</p>
+          <p class="track-role">A&amp;R Consultant · marketing rollout</p>
+        </div>
+        <a class="track-link" href="https://tooxclusive.com/next-rated/le-beau-jaye-jaye/" target="_blank" rel="noopener">Read on TooXclusive ↗</a>
+      </article>
+
+      <article class="track" data-reveal>
+        <span class="platform rn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span>
+        <div>
+          <h3>Green Seal</h3>
+          <p class="track-meta">Bob Kisky · 2011</p>
+          <p class="track-role">Music Producer</p>
+        </div>
+        <a class="track-link" href="https://legacy.reverbnation.com/bobkisky/song/10192826" target="_blank" rel="noopener">Hear on ReverbNation ↗</a>
+      </article>
+
+      <article class="track" data-reveal>
+        <span class="platform ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+        <div>
+          <h3>Mera <span style="font-size:.65em;color:var(--muted)">(Visualizer)</span></h3>
+          <p class="track-meta">Boyty · 2025</p>
+          <p class="track-role">Operations · filming locations</p>
+        </div>
+        <a class="track-link" href="https://www.instagram.com/reel/DUHLBtqjSHr/" target="_blank" rel="noopener">Watch on Instagram ↗</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── Skills ───────────────────────────────────────────── -->
+<section id="skills" class="section">
+  <div class="container">
+    <header class="section-head" data-reveal>
+      <div class="head-row"><span class="sec-num">03</span><span class="eyebrow">Toolkit</span><span class="head-rule"></span></div>
+      <h2>Core Competencies</h2>
+    </header>
+    <div class="skills-grid" data-reveal>
+      <div class="skill-card">
+        <h3>Management</h3>
+        <ul>
+          <li>Artist Management</li>
+          <li>A&amp;R</li>
+          <li>Artist Development</li>
+          <li>Label Operations</li>
+          <li>Talent Scouting</li>
+          <li>Recording Camp Coordination</li>
+          <li>Marketing &amp; Promotions</li>
+          <li>Event Management</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <h3>Technical &amp; Business</h3>
+        <ul>
+          <li>Music Publishing Administration</li>
+          <li>Music Production</li>
+          <li>Mix Engineering</li>
+          <li>Contract Drafting</li>
+          <li>Business Planning</li>
+          <li>Recruitment &amp; Team Coordination</li>
+          <li>Rights &amp; Metadata Management</li>
+          <li>Project &amp; Release Coordination</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ──────────────────────────────────────────── -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="contact-card" data-reveal>
+      <p class="eyebrow">04 — Get in touch</p>
+      <h2>Let's build the next release together.</h2>
+      <p class="contact-sub">Management, A&amp;R, label operations or music business advisory — tell me about your project.</p>
+
+      <!-- ═══════════════════════════════════════════════
+           TO CONNECT THE CONTACT FORM (2 minutes, free):
+           1. Go to formspree.io and sign up (free)
+           2. Create a new form → copy the endpoint URL,
+              e.g. https://formspree.io/f/abcdwxyz
+           3. Replace YOUR_FORM_ID in the action below with
+              the code from your endpoint
+      ═══════════════════════════════════════════════ -->
+      <form id="contact-form" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="text" name="name" placeholder="Your name" required autocomplete="name" />
+        <input type="email" name="email" placeholder="Your email" required autocomplete="email" />
+        <textarea name="message" placeholder="Tell me about your project…" required></textarea>
+        <button type="submit" class="btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg>
+          Send Message
+        </button>
+      </form>
+      <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+
+      <p class="contact-alt">Find me on <a href="https://www.linkedin.com/in/tayo-adeniran-b7885b123" target="_blank" rel="noopener">LinkedIn</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© <span id="year">2025</span> Adeniran Tayo — Artist Management Portfolio</p>
+    <p class="foot-note">Hosted on GitHub Pages · Da Grin · Bob Kisky · SSYMA Records · TJay KARTEL · Le Beau · Boyty · Honeydrop · Santabella Music Empire</p>
+    <a class="to-top" href="#">↑ Back to top</a>
+  </div>
+</footer>
+
+<script>
+// Current year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// ── Scroll progress bar ──
+const progress = document.getElementById('progress');
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    progress.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    ticking = false;
+  });
+}, { passive: true });
+
+// ── Passport photo: swap in when passport.jpg exists, fall back to monogram ──
+const avatar = document.getElementById('avatar');
+const passportImg = document.getElementById('passport-img');
+passportImg.addEventListener('load', () => avatar.classList.add('has-photo'));
+passportImg.addEventListener('error', () => avatar.classList.remove('has-photo'));
+
+// ── Contact form (Formspree) ──
+const form = document.getElementById('contact-form');
+const formStatus = document.getElementById('form-status');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const action = form.getAttribute('action') || '';
+
+  if (action.includes('YOUR_FORM_ID')) {
+    formStatus.textContent = 'The form isn\u2019t connected yet — please check back soon or reach out via LinkedIn.';
+    formStatus.className = 'form-status err';
+    return;
+  }
+
+  const btn = form.querySelector('button');
+  btn.disabled = true;
+  const original = btn.innerHTML;
+  btn.textContent = 'Sending\u2026';
+
+  try {
+    const res = await fetch(action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      form.reset();
+      formStatus.textContent = 'Thanks — your message has been sent. I\u2019ll get back to you soon.';
+      formStatus.className = 'form-status ok';
+    } else {
+      formStatus.textContent = 'Something went wrong — please try again.';
+      formStatus.className = 'form-status err';
+    }
+  } catch {
+    formStatus.textContent = 'Something went wrong — please try again.';
+    formStatus.className = 'form-status err';
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = original;
+});
+
+// ── Reveal on scroll ──
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+</script>
+
+</body>
+</html>
